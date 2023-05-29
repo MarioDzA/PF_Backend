@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import authenticate from '../auth/authenticate';
+
 import {
   createUser,
   deleteUser,
@@ -6,14 +8,13 @@ import {
   readUserByID,
   updateUser,
 } from './user.controller';
-import authenticate from '../auth/authenticate';
 
 const userRouter = Router();
 
 userRouter.post('/login', login);
 userRouter.post('/', createUser);
-userRouter.get('/:_id', readUserByID);
-userRouter.patch('/', authenticate, updateUser);
-userRouter.delete('/', authenticate, deleteUser);
+userRouter.get('/:id', readUserByID);
+userRouter.patch('/:id', authenticate, updateUser);
+userRouter.delete('/:id', authenticate, deleteUser);
 
 export default userRouter;

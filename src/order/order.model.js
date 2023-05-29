@@ -2,22 +2,33 @@ import { Schema, model } from 'mongoose';
 
 const orderSchema = new Schema(
   {
-    orderStatus: {
-      type: String,
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
       required: true,
-      enum: [
-        'Creado',
-        'Enviado',
-        'Aceptado',
-        'Recibido',
-        'En direccion',
-        'Realizado',
-      ],
     },
-    user_id: { type: Schema.Types.ObjectId, required: true },
-    active: { type: Boolean, default: true },
-  },
-  { timestamps: true }
+    product: {
+      type: Schema.Types.ObjectId,
+      required: true,
+    },
+    quantity: {
+      type: Number,
+      required: true,
+    },
+    comment: {
+      type: String,
+    },
+    rating: {
+      type: Number,
+      min: 1,
+      max: 5,
+      default: 0,
+    },
+    orderDate: {
+      type: Date,
+      default: Date.now,
+    },
+  }
 );
 const orderModel = model('order', orderSchema);
 

@@ -41,19 +41,6 @@ export async function searchOrder(req, res) {
   }
 }
 
-export async function getOrderSent(res) {
-  try {
-    const document = await orderModel.find({
-      active: true,
-      status: 'sent'
-    });
-    document ? res.status(200).json(document) : res.sendStatus(404);
-  } catch (error) {
-    res.status(400).json(error.message);
-  }
-}
-
-
 export async function updateOrder(req, res) {
   try {
     const id = req.params.id;
@@ -69,12 +56,3 @@ export async function updateOrder(req, res) {
   }
 }
 
-export async function deleteOrder(req, res) {
-  try {
-    const id = req.params.id;
-    const document = await orderModel.findByIdAndUpdate( { _id: id, active: true }, {active: false,}, {new: true},);
-    document ? res.status(200) : res.sendStatus(404);
-  } catch (error) {
-    res.status(400).json(error.message);
-  }
-}

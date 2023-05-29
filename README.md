@@ -1,2 +1,2 @@
 # PF_Backend
-Repo para Proyecto Final de Backend
+By: Mario David Diaz Antequera y Jesús David Duran Cardenas

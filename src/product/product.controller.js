@@ -5,7 +5,7 @@ export async function createProduct(req, res) {
   try {
     const product = req.body;
     product.active = true;
-    if (req.body.user !== req.userId) {
+    if (req.body.user_id !== req.user_id) {
       return res.status(403).send({
         message: 'User ID in token does not match user ID in request body.',
       });
@@ -82,15 +82,15 @@ export async function readProducts(req,res) {
 export async function updateProduct(req, res) {
   try {
     const id = req.params._id;
+    const document = await productModel.findByIdAndUpdate({ _id: id, active: true }, req.body, {
+      runValidators: true,
+      new: true,
+    });
     if (product.user.toString() !== req.user_id) {
       return res.status(403).send({
         message: 'You do not have permission to update this product.',
       });
     }
-    const document = await productModel.findByIdAndUpdate({ _id: id, active: true }, req.body, {
-      runValidators: true,
-      new: true,
-    });
     document ? res.status(200).json(document) : res.sendStatus(404);
   } catch (error) {
     res.status(400).json(error.message);
